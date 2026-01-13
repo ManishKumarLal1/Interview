@@ -1,32 +1,58 @@
-import express from "express"
-import mongoose from "mongoose"
-import {ENV} from "./lib/env.js"
-import { connectDB } from "./lib/db.js";
+import express from "express";
+import path from "path";
 import cors from "cors";
-import {serve} from "inngest/express"
-import { inngest, functions} from "./lib/inngest.js";
 
+import { ENV } from "./lib/env.js";
+import { connectDB } from "./lib/db.js";
+import { serve } from "inngest/express";
+import { inngest, functions } from "./lib/inngest.js";
 
 const app = express();
-app.get("/health", (req,res)=>{
-    
-    res.status(200).json({msg:"api is up and running"});
-})
 
-//middlewares
+/* ---------- PATH SETUP (FIXED, NO CWD BUG) ---------- */
 
+const __dirname = path.resolve();
+
+// project root: Interview/
+const ROOT_DIR = path.join(__dirname, "../..");
+
+/* ---------- MIDDLEWARES ---------- */
 app.use(express.json());
-app.use(cors({origin:ENV.CLIENT_URL, credentials:true}))
+app.use(cors());
 
-app.use("/api/inngest", serve({client: inngest, functions}))
 
-const startServer = async()=>{
-    try {
-       await connectDB();
-       app.listen(ENV.PORT, ()=>{console.log(`Server is running on port ${ENV.PORT}`)})
-    } catch (error) {
-        console.error("Error starting the server" ,error)
-    }
+/* ---------- API ROUTES ---------- */
+app.get("health", (req, res) => {
+  res.json({ msg: "API is up and running" });
+});
+
+app.get("/test", (req, res) => {
+  res.json({ msg: "Tested successfully" });
+});
+
+app.use("/api/inngest", serve({ client: inngest, functions }));
+/* ---------- STATIC FRONTEND (PRODUCTION) ---------- */
+if (ENV.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")))
+  app.get("/{*any}", (req,res)=>{
+    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"))
+  })
 }
+
+
+
+/* ---------- START SERVER ---------- */
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(ENV.PORT, () => {
+      console.log(`Server running on port ${ENV.PORT}`);
+      console.log("NODE_ENV =", ENV.NODE_ENV);
+    });
+  } catch (err) {
+    console.error("Startup error:", err);
+    process.exit(1);
+  }
+};
 
 startServer();
