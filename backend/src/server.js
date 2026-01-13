@@ -13,22 +13,13 @@ const app = express();
 
 const __dirname = path.resolve();
 
-// project root: Interview/
-const ROOT_DIR = path.join(__dirname, "../..");
 
 /* ---------- MIDDLEWARES ---------- */
 app.use(express.json());
 app.use(cors());
 
 
-/* ---------- API ROUTES ---------- */
-app.get("health", (req, res) => {
-  res.json({ msg: "API is up and running" });
-});
 
-app.get("/test", (req, res) => {
-  res.json({ msg: "Tested successfully" });
-});
 
 app.use("/api/inngest", serve({ client: inngest, functions }));
 /* ---------- STATIC FRONTEND (PRODUCTION) ---------- */
@@ -38,7 +29,14 @@ if (ENV.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../frontend/dist/index.html"))
   })
 }
+/* ---------- API ROUTES ---------- */
+app.get("health", (req, res) => {
+  res.json({ msg: "API is up and running" });
+});
 
+app.get("/test", (req, res) => {
+  res.json({ msg: "Tested successfully" });
+});
 
 
 /* ---------- START SERVER ---------- */
