@@ -16,7 +16,7 @@ const __dirname = path.resolve();
 
 /* ---------- MIDDLEWARES ---------- */
 app.use(express.json());
-app.use(cors{origin:ENV.CLIENT_URL});
+app.use(cors({origin:ENV.CLIENT_URL,credentials:true}));
 
 /* ---------- API ROUTES ---------- */
 app.get("/health", (req, res) => {
