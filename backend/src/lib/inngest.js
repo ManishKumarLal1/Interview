@@ -7,6 +7,7 @@ const inngest= new Inngest({
     id:"intervew-platform",
     eventKey: ENV.INNGEST_EVENT_KEY,
     signingKey: ENV.INNGEST_SIGNING_KEY,
+    baseUrl: "https://api.inngest.com",
 })
 const syncUser= inngest.createFunction(
     {id:"sync-user"},
