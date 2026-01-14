@@ -1,8 +1,13 @@
 import {Inngest} from "inngest";
 import {connectDB} from "./db.js";
 import User from "../models/User.js";
+import {ENV} from "./env.js";
 
-const inngest= new Inngest({id:"intervew-platform",})
+const inngest= new Inngest({
+    id:"intervew-platform",
+    eventKey: ENV.INNGEST_EVENT_KEY,
+    signingKey: ENV.INNGEST_SIGNING_KEY,
+})
 const syncUser= inngest.createFunction(
     {id:"sync-user"},
     {event:"clerk/user.created"},
