@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 /* ---------- API ROUTES ---------- */
-app.get("health", (req, res) => {
+app.get("/health", (req, res) => {
   res.json({ msg: "API is up and running" });
 });
 
