@@ -1,13 +1,14 @@
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/clerk-react";
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
+
+import './App.css'
 
 function App() {
-  return (
+  const [count, setCount] = useState(0)
+
+  rreturn (
     <>
       <SignedOut>
         <SignInButton />
@@ -21,4 +22,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
