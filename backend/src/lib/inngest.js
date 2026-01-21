@@ -11,7 +11,7 @@ const inngest= new Inngest({
 const syncUser= inngest.createFunction(
     {id:"sync-user"},
     {event:"clerk/user.created"},
-    async(event)=>{
+    async({event})=>{
         await connectDB();
          const {id,email_address,first_name,last_name,image_url} = event.data
          //creating new user using param
@@ -28,7 +28,7 @@ const syncUser= inngest.createFunction(
 const deleteUserFromDB= inngest.createFunction(
     {id:"delete-User_From_DB"},
     {event:"clerk/user.deleted"},
-    async(event)=>{
+    async({event})=>{
         await connectDB();
          const {id,} = event.data
         
