@@ -7,7 +7,6 @@ const inngest= new Inngest({
     id:"intervew-platform",
     eventKey: ENV.INNGEST_EVENT_KEY,
     signingKey: ENV.INNGEST_SIGNING_KEY,
-    baseUrl: "https://api.inngest.com",
 })
 const syncUser= inngest.createFunction(
     {id:"sync-user"},
@@ -20,7 +19,7 @@ const syncUser= inngest.createFunction(
             clerkId:id,
             email:email_address[0]?.email_address,
             name:`${first_name || ""} ${last_name || ""}`,
-            profileImage:image_url,
+            profilepic:image_url,
          }
          await User.create(newUser);
           //todo - do something else
