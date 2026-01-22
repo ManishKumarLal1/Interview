@@ -1,4 +1,4 @@
-import {StreamChat} from "stream";
+import {StreamChat} from "stream-chat";
 import { ENV } from "./env.js"
 
 const apiKey= ENV.STREAM_API_KEY;
@@ -27,3 +27,4 @@ export const deleteStreamUser = async(userId)=>{
         console.error("Error in deleting Stream User:", error);
     }
 }
+// todo - add another method to generate tokens
