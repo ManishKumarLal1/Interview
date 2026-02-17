@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/ManishKumarLal1/Interview/issues"
   },
-  "homepage": "https://github.com/ManishKumarLal1/Interview#readme"
+  "homepage": "https://github.com/ManishKumarLal1/Interview#readme",
+  "dependencies": {
+    "@stream-io/node-sdk": "^0.7.41"
+  }
 }
